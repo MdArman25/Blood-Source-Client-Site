@@ -132,12 +132,15 @@ const AllUsers = () => {
                   )}
                 </td>
                 <td className="">
-                <select className="select select-bordered select-sm   bg ring-red-600">
-  
-  <option className="uppercase">Active</option>
-  <option className="uppercase">Block</option>
-  <option className="uppercase">Delete</option>
-</select>
+                <button
+                          className="btn btn-secondary btn-sm"
+                          // onClick={() =>
+                          //   // handlePromoteUser("admin", user?.email)
+                          // }
+                          disabled={user?.role === "admin"}
+                        >
+                          admin
+                        </button>
                 </td>
                 
               </tr>

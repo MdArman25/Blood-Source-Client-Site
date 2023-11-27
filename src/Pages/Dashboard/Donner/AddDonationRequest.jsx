@@ -52,6 +52,7 @@ const AddItems = () => {
       });
   }, []);
   useEffect(() => {
+    
     fetch("/Upazila.json")
       .then((res) => res.json())
       .then((data) => {
