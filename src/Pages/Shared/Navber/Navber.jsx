@@ -3,10 +3,17 @@ import { Link, NavLink } from "react-router-dom";
 
 import { FaShoppingCart } from "react-icons/fa";
 import Context from "../../../Hooks/useContext";
-const NavBar = () => {
-  const { user, logOut } = Context();
-  console.log(user);
+import useAdmin from "../../../Hooks/useAdmin";
 
+const NavBar = () => {
+  const { user, logOut,lodding } = Context();
+  console.log(user);
+  // const [isAdmin,isAdminLoading] = useAdmin(); 
+  // // const [isVolunteer,isVolunteerLoading]=useVolunteer()
+  // if(isAdminLoading){
+  //   <p>Lodding</p>
+  // }
+  // console.log("admin ki asole ase naki",isAdmin,isAdminLoading,user,lodding);
   const HandlelogOut = () => {
     logOut()
       .then(() => {})
@@ -16,10 +23,7 @@ const NavBar = () => {
   const navOptions = (
     <>
       <li>
-        <NavLink to={"/"}>
-
-          HOME
-        </NavLink>
+        <NavLink to={"/"}>HOME</NavLink>
       </li>
       <li>
         <NavLink to={"/contact_us"}>CONTACT US</NavLink>
@@ -42,7 +46,6 @@ const NavBar = () => {
             <button> MY CART</button>
           </NavLink>
         </ul>
-      
       </div>
     </>
   );
@@ -88,7 +91,10 @@ const NavBar = () => {
         <div className="navbar-end ml-10 ">
           {user?.email ? (
             <div className="dropdown dropdown-end dropdown-hover text-black ">
-              <label tabIndex={0} className="btn  online btn-ghost btn-circle avatar">
+              <label
+                tabIndex={0}
+                className="btn  online btn-ghost btn-circle avatar"
+              >
                 <div className="w-full border rounded-full">
                   <img className=" h-5/6" src={user.photoURL} />
                 </div>
@@ -97,51 +103,34 @@ const NavBar = () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content  mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
               >
-                <li>
+                <li className=" py-2 ">
                   <NavLink
-                    to={"/profile"}
-                    className={({isPending, isActive }) =>
-                    isPending
-                    ? "pending "
-                    : isPending
-                    ? "pending "
-                    : isActive
-                    ? "btn  "
-                    : "btn btn-ghost "
+                   to={ "/Dashboard" }
+                    className={({ isPending, isActive }) =>
+                      isPending
+                        ? "pending "
+                        : isActive
+                        ? "btn btn-warning "
+                        : "btn btn-ghost "
                     }
                   >
                     PROFILE
                   </NavLink>
                 </li>
-                <li className=" py-2 ">
-                  <NavLink
-                    to={"/dashboard"}
-                    className={({isPending, isActive }) =>
-                    isPending
-                    ? "pending "
-                    : isPending
-                    ? "pending "
-                    : isActive
-                    ? "btn btn-warning "
-                    : "btn btn-ghost "
-                    }
-                  >
-                    DASHBOARD
-                  </NavLink>
-                </li>
+
                 <li>
                   <NavLink
-                    className={({isPending, isActive }) =>
-                    isPending
-                    ? "pending "
-                    : isPending
-                    ? "pending "
-                    : isActive
-                    ? "btn btn-outline  "
-                    : "btn btn-ghost "
+                    className={({ isPending, isActive }) =>
+                      isPending
+                        ? "pending "
+                        : isPending
+                        ? "pending "
+                        : isActive
+                        ? "btn btn-outline  "
+                        : "btn btn-ghost "
                     }
                     onClick={HandlelogOut}
-                  > 
+                  >
                     LOGOUT
                   </NavLink>
                 </li>

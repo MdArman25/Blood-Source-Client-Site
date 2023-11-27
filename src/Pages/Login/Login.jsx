@@ -13,8 +13,8 @@ import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Login = () => {
-  const  {signInUser,signInWithGoogle}  = Context()
-  const axiosPublic = useAxiosPublic()
+  const { signInUser, signInWithGoogle } = Context();
+  const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const location = useLocation();
   console.log(location);
@@ -24,8 +24,6 @@ const Login = () => {
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
-
-  
 
   const handlevalidetCapture = (e) => {
     const user_captcha_value = e.target.value;
@@ -52,28 +50,28 @@ const Login = () => {
     console.log(emailvalue, passwordvalue);
   };
   const handleGoogleSignIn = () => {
-    signInWithGoogle()
-    .then((result) => {
-      
+    signInWithGoogle().then((result) => {
       const userInfo = {
         name: result?.user?.displayName,
         email: result?.user?.email,
-        image:result?.user?.photoURL,
-        BloodGroup:null,
-        District:null,
-Upazila:null,
-
+        image: result?.user?.photoURL,
+        BloodGroup: null,
+        District: null,
+        Upazila: null,
+        status: "active",
+        role:'Donar'
       };
       console.log(result);
-      axiosPublic.post("/users", userInfo)
-      .then((res) => {
-        console.log(res.data);
-        toast.success("successFully User Login")
-        // navigate("/");
-      })
-      .catch(error=>{
-        toast.error(error.message)
-      })
+      axiosPublic
+        .post("/users", userInfo)
+        .then((res) => {
+          console.log(res.data);
+          toast.success("successFully User Login");
+          navigate("/");
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
     });
   };
   return (
@@ -85,7 +83,8 @@ Upazila:null,
             Sign in to access your account
           </p>
         </div>
-        <form onSubmit={HandleFrom}
+        <form
+          onSubmit={HandleFrom}
           noValidate=""
           action=""
           className="space-y-6 ng-untouched ng-pristine ng-valid"
@@ -123,7 +122,6 @@ Upazila:null,
             </div>
             <div>
               <label htmlFor="">
-                
                 <LoadCanvasTemplate />
               </label>
 
@@ -138,15 +136,14 @@ Upazila:null,
                 placeholder="type the captcha above"
                 className="input input-bordered"
                 name="captcha"
-                required
+                // required
               />
             </div>
           </div>
 
           <div>
-          
             <button
-             disabled={disabled}
+              // disabled={disabled}
               type="submit"
               className="bg-rose-500 w-full rounded-md py-3 text-white"
             >
@@ -161,12 +158,15 @@ Upazila:null,
         </div>
         <div className="flex items-center pt-4 space-x-1">
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
-          <p  className="px-3 text-sm dark:text-gray-400">
+          <p className="px-3 text-sm dark:text-gray-400">
             Login with Social accounts
           </p>
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
-        <div onClick={handleGoogleSignIn} className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer">
+        <div
+          onClick={handleGoogleSignIn}
+          className="flex justify-center items-center space-x-2 border m-3 p-2 border-gray-300 border-rounded cursor-pointer"
+        >
           <FcGoogle size={32} />
 
           <p>Continue with GOOGLE</p>

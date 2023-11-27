@@ -61,7 +61,9 @@ const SignUp = () => {
         image:data?.data?.display_url,
         BloodGroup:BloodGroup,
         District:District,
-Upazila:Upazila
+Upazila:Upazila,
+status: "active",
+role:'Donar'
 
       };
       console.log(userInfo);
@@ -200,7 +202,7 @@ Upazila:Upazila
                 </div>
                 <div className="w-full">
                     <label htmlFor="email" className="block mb-2 text-sm">
-                      District Name
+                      Upazila Name
                     </label>
                    
                     <select  name="upazila"
