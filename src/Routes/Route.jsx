@@ -13,6 +13,9 @@ import AdminRoute from "./AdminRoute";
 import UserHome from "../Pages/Dashboard/Donner/UserHome";
 import DonationAllRequest from "../Pages/Dashboard/Donner/DonationAllRequest";
 import AllDonationRequest from "../Pages/Dashboard/Admin/AllDonationRequest";
+import VolunteerRoute from "./VolunteerRoute";
+import VolunteerProfile from "../Pages/Dashboard/Volunteer/VolunteerProfile";
+import DonationUpadate from "../Components/DonationUpadate";
 
 export const router = createBrowserRouter([
   {
@@ -61,21 +64,27 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      // {
-      //   path:'/Dashboard/ModeratorProfile',
-      //   element:<PrivateRoute><AdminRoute><AdminHome></AdminHome></AdminRoute></PrivateRoute>
-      // },
       {
-        path: "/Dashboard/Profile",
+        path: "/Dashboard/VolunteerProfile",
         element: (
           <PrivateRoute>
-            <AdminRoute>
-              {" "}
-              <AdminHome></AdminHome>
-            </AdminRoute>
+            <VolunteerRoute>
+              <VolunteerProfile></VolunteerProfile>
+            </VolunteerRoute>
           </PrivateRoute>
         ),
       },
+      // {
+      //   path: "/Dashboard/Profile",
+      //   element: (
+      //     <PrivateRoute>
+      //       <AdminRoute>
+      //         {" "}
+      //         <AdminHome></AdminHome>
+      //       </AdminRoute>
+      //     </PrivateRoute>
+      //   ),
+      // },
       // {
       //   path:'/Dashboard',
       //   element:<VolunteerRoute><Dashboard></Dashboard> </VolunteerRoute>
@@ -111,8 +120,17 @@ export const router = createBrowserRouter([
             <AllDonationRequest></AllDonationRequest>
           </PrivateRoute>
         ),
+        loader:()=>fetch('http://localhost:5000/requestCount')
+      },
+      {
+        path: "/Dashboard/MyDonationUpdate/:id",
+        element: (
+          <PrivateRoute>
+            <DonationUpadate></DonationUpadate>
+          </PrivateRoute>
+        ),
+        loader:({params})=>fetch(`http://localhost:5000/MyDonationUpdate/${params.id}`)
       },
     ],
   },
 ]);
-  

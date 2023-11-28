@@ -85,7 +85,9 @@ const AddItems = () => {
     console.log();
     const userInfo = {
       recipient_name,
+      address,
       donation_date,
+      donation_time,
       hospital_name,
       Request_Message,
       District,
