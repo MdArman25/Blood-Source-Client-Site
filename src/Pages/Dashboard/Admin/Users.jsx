@@ -131,7 +131,7 @@ const AllUsers = () => {
                     </>
                   )}
                 </td>
-                <td className="">
+                {/* <td className="">
                 <button
                           className="btn btn-secondary btn-sm"
                           // onClick={() =>
@@ -141,7 +141,7 @@ const AllUsers = () => {
                         >
                           admin
                         </button>
-                </td>
+                </td> */}
                 
               </tr>
             ))}
