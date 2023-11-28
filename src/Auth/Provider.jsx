@@ -11,9 +11,13 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-
 import useAxiosPublic from "../Hooks/useAxiosPublic";
 import { auth } from "../Firebase/firebase.config";
+
+
+
+
+
 
 export const AuthContext = createContext(null);
 
@@ -43,30 +47,26 @@ const Provider = ({ children }) => {
     return signOut(auth);
   };
 
-  const updeateProfile = (name, photoURL) => {
-    console.log( name, photoURL);
-    console.log(auth.currentUser);
-    updateProfile(auth.currentUser, {
+  const updateUserProfile = (name, photo) => {
+    console.log(name,photo);
+    return updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: photoURL,
+      photoURL: photo,
     });
-    return;
   };
-
-
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (User) => {
       const userEmail = User?.email || user?.email;
       const loggedUser = { email: userEmail };
-      setUser(User);
-      console.log("Curent user", User);
-
+     setUser(User);
+      console.log( 'Curent user',User);
+      setLoading(false);
       if (User) {
         AxiosPublic.post("/jwt", loggedUser).then((res) => {
           console.log("token response", res.data);
         });
-        setLoading(false)
-      } else {
+      } 
+      else {
         AxiosPublic.post("/logout", loggedUser, {
           withCredentials: true,
         }).then((res) => {
@@ -78,37 +78,10 @@ const Provider = ({ children }) => {
     return () => {
       unSubscribe();
     };
-  }, [loading]);
+  }, []);
 
-  // useEffect(() => {
-  //   const unSubscribe = onAuthStateChanged(auth, (User) => {
-  //     const userEmail = User?.email || user?.email;
-    
-  //     const loggedUser = { email: userEmail };
-  //     console.log(userEmail,loggedUser);
-  //     setUser(User);
-  //     console.log("Curent user", User);
-
-  //     if (User) {
-  //       AxiosPublic.post("/jwt", loggedUser).then((res) => {
-  //         console.log("token response", res?.data);
-  //       });
-  //     } 
-  //     else {
-  //       AxiosPublic.post("/logout", loggedUser, {
-         
-  //       }).then((res) => {
-  //         console.log("logout",res.data);
-  //       });
-  //     }
-  //     setLoading(false);
-  //   });
-  //   return () => {
-  //     unSubscribe();
-  //   };
-  // }, []);
   const authInfo = {
-    updeateProfile,
+    updateUserProfile,
     user,
     loading,
     createUser,

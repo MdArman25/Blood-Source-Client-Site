@@ -4,12 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import Context from "../../../Hooks/useContext";
 import useAdmin from "../../../Hooks/useAdmin";
+import useVolunteer from "../../../Hooks/useModerator";
 
 const NavBar = () => {
   const { user, logOut,lodding } = Context();
   console.log(user);
-  // const [isAdmin,isAdminLoading] = useAdmin(); 
-  // // const [isVolunteer,isVolunteerLoading]=useVolunteer()
+  const [isAdmin,isAdminLoading] = useAdmin(); 
+  const [isVolunteer,isVolunteerLoading]=useVolunteer()
   // if(isAdminLoading){
   //   <p>Lodding</p>
   // }
@@ -105,7 +106,13 @@ const NavBar = () => {
               >
                 <li className=" py-2 ">
                   <NavLink
-                   to={ "/Dashboard" }
+                  to={
+                    isAdmin?.isAdmin
+                      ? "/Dashboard/AdminProfile"
+                      : isVolunteer?.isVolunteer
+                      ? "/Dashboard/VolunteerProfile"
+                      : "/Dashboard/UserProfile"
+                  }
                     className={({ isPending, isActive }) =>
                       isPending
                         ? "pending "
