@@ -1,23 +1,23 @@
-// import { useQuery } from "@tanstack/react-query";
-// import Context from "./useContext";
-// import useAxiosSecure from "./useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
+import Context from "./useContext";
+import useAxiosSecure from "./useAxiosSecure";
 
 
-// const useModerator = () => {
-//   const { user } = Context();
-//   // const [Moderator,setModerator]=useState()
-//   const axiosSecure = useAxiosSecure();
-//   console.log(user);
-//   const { data: isModerator, isLoading: isModeratorLoading } = useQuery({
-//     queryKey: ["requestModerator", user?.email],
+const useVolunteer = () => {
+  const { user } = Context();
+  // const [volunteer,setvolunteer]=useState()
+  const axiosSecure = useAxiosSecure();
+  console.log(user);
+  const { data: isVolunteer, isLoading: isVolunteerLoading } = useQuery({
+    queryKey: ["requestvolunteer", user?.email],
 
-//     queryFn: async () => {
-//       const res = await axiosSecure.get(`/moderator/${user?.email}`);
-//       console.log(res.data);
-//       return res.data;
-//     },
-//   });
-//   return [isModerator, isModeratorLoading];
-// };
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/volunteer/${user?.email}`);
+      console.log(res.data);
+      return res.data;
+    },
+  });
+  return [isVolunteer, isVolunteerLoading];
+};
 
-// export default useModerator;
+export default useVolunteer;
