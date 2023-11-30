@@ -8,11 +8,13 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 
 
 const DonationUpdate = () => {
+  const donation = useLoaderData();
+  console.log(donation);
+
     const navigate=useNavigate()
 
     const [districts, setDistrics] = useState([]);
     const [upazilas, setUpazila] = useState([]);
-    const donation = useLoaderData();
     console.log(donation);
     const { user } = Context();
     const axiosSecure = useAxiosSecure();
@@ -44,6 +46,7 @@ const HandleDonationUpdate=(e)=>{
     const donation_time = form.donation_time.value;
     
     const Request_Message = form.Request_Message.value;
+    const donation_status = donation?.donation_status
 
     const address = form.address.value;
     const District = form.district.value;
@@ -55,6 +58,7 @@ const HandleDonationUpdate=(e)=>{
       donation_time,
       District,
       Upazila,
+      donation._id,
      
     );
     console.log();
@@ -67,7 +71,7 @@ const HandleDonationUpdate=(e)=>{
       Request_Message,
       District,
       Upazila,
-      donation_status: "pending",
+      donation_status,
       requester_Name: user?.displayName,
       requester_email: user?.email,
       requester_photo: user?.photoURL,
@@ -84,10 +88,11 @@ const HandleDonationUpdate=(e)=>{
         if (result.isConfirmed) {
           // User confirmed, perform the action
           axiosSecure
-            .put(`/Blood_Request_update/${donation?._id}`, {
+            .put(`/Blood_Request_update/${donation?._id}`, 
                 UpdateDonation
-            })
+            )
             .then((data) => {
+              console.log(data);
               if (data?.data?.modifiedCount > 0) {
                 Swal.fire({
                   title: "upgrade Request  Successfully!",
@@ -95,7 +100,7 @@ const HandleDonationUpdate=(e)=>{
                   timer: 500, // Optional: Auto-close the modal after 2 seconds
                   showConfirmButton: false,
                 });
-                navigate('/dashboard/donationRequest')
+                // navigate('/dashboard/donationRequest')
               }
             });
         }
@@ -249,7 +254,7 @@ const HandleDonationUpdate=(e)=>{
                 <div className="col-span-full sm:col-span-3">
                   <label className="text-sm"> requester Name</label>
                   <input
-                    defaultValue={donation?.requester_name
+                    defaultValue={donation?.requester_Name
                     }
                     type="text"
                     readOnly
