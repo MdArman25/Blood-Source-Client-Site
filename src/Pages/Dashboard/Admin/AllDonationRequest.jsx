@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import useAdmin from "../../../Hooks/useAdmin";
+import useVolunteer from "../../../Hooks/useModerator";
 
 
 const AllDonationRequest = () => {
     // const { user } = Context();
-    const axiosSecure = useAxiosSecure();
+  const [isAdmin,isAdminLoading]=useAdmin()
+  const [isVolunteer,isVolunteerLoading]=useVolunteer()
+
+  const axiosSecure = useAxiosSecure();
     const { data: AllAAdminDonationRequest = [] } = useQuery({
       queryKey: ["AllAdminDonationRequest?"],
       queryFn: async () => {

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const AxiosPublic = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://assignment-server-plum.vercel.app",
   withCredentials: "true",
 });
 const useAxiosPublic = () => {
