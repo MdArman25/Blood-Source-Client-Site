@@ -11,7 +11,6 @@ const AllUsers = () => {
   const axiosSecure = useAxiosSecure();
   console.log(users);
   const handlePromoteUser = (role, email) => {
-   
     Swal.fire({
       title: "Are you sure?",
       text: "You will not be able to undo this action.",
@@ -23,21 +22,20 @@ const AllUsers = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure
-        .put(`/user-update?email=${email}`, {
-          role: role,
-        })
-        .then((data) => {
-          if (data?.data?.modifiedCount > 0) {
-            Swal.fire({
-              title: "upgrade user Successfully!",
-              icon: "success",
-              timer: 500, // Optional: Auto-close the modal after 2 seconds
-              showConfirmButton: false,
-            });
-            refetch();
-          }
-        });
-      
+          .put(`/use-rupdate?email=${email}`, {
+            role: role,
+          })
+          .then((data) => {
+            if (data?.data?.modifiedCount > 0) {
+              Swal.fire({
+                title: "upgrade user Successfully!",
+                icon: "success",
+                timer: 500, // Optional: Auto-close the modal after 2 seconds
+                showConfirmButton: false,
+              });
+              refetch();
+            }
+          });
       }
     });
   };
@@ -61,11 +59,20 @@ const AllUsers = () => {
       <div className="uppercase font-semibold h-[60px] flex justify-evenly items-center">
         <h3 className="text-3xl font-semibold">Total Users: {users?.length}</h3>
       </div>
-      <div className="overflow-x-auto w-full border-2">
+      <div className="flex justify-center py-10">
+        <select className="select select-accent w-full  max-w-xs">
+          <option disabled selected>
+            Search For Find Users
+          </option>
+          <option>Active</option>
+          <option>Block</option>
+        </select>
+      </div>
+      <div className="overflow-x-auto w-full ">
         <table className="table w-full">
           {/* head */}
           <thead>
-            <tr  className="text-center">
+            <tr className="text-center">
               <th>#</th>
               <th>Image</th>
               <th>Name</th>
@@ -97,9 +104,7 @@ const AllUsers = () => {
                     </label>
                   ) : (
                     <>
-
                       <div className="grid gap-4 md:flex">
-                   
                         <button
                           onClick={() =>
                             handlePromoteUser("Donar", user?.email)
@@ -142,7 +147,6 @@ const AllUsers = () => {
                           admin
                         </button>
                 </td> */}
-                
               </tr>
             ))}
           </tbody>

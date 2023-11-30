@@ -61,7 +61,7 @@ const Provider = ({ children }) => {
      setUser(User);
       console.log( 'Curent user',User);
       setLoading(false);
-      if (User) {
+      if (User||userEmail) {
         AxiosPublic.post("/jwt", loggedUser).then((res) => {
           console.log("token response", res.data);
         });
