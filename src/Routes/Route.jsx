@@ -16,6 +16,11 @@ import AllDonationRequest from "../Pages/Dashboard/Admin/AllDonationRequest";
 import VolunteerRoute from "./VolunteerRoute";
 import VolunteerProfile from "../Pages/Dashboard/Volunteer/VolunteerProfile";
 import DonationUpadate from "../Components/DonationUpadate";
+import BloodDonationRequest from "../Pages/Public/BloodDonationRequest";
+import DonationDetails from "../Pages/Public/DonationDetails";
+import Contact from "../Pages/Contact";
+import SearchPage from "../Pages/Public/SearchPage";
+import Funding from "../Pages/Dashboard/Donner/Funding";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +38,34 @@ export const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/Contact",
+        element: <Contact></Contact>,
+      },
+      {
+        path: "/searchDonation",
+        element: <SearchPage></SearchPage>,
+      },
+      {
+        path: "/BloodDonationRequest",
+        element: <BloodDonationRequest></BloodDonationRequest>,
+      },
+      {
+        path: "/Funding",
+        element: <Funding></Funding>,
+      },
+      {
+        path: "/donationDetails/:id",
+        element: (
+          <PrivateRoute>
+            <DonationDetails></DonationDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://assignment-server-plum.vercel.app/services/${params.id}`
+          ),
       },
     ],
   },
@@ -120,7 +153,8 @@ export const router = createBrowserRouter([
             <AllDonationRequest></AllDonationRequest>
           </PrivateRoute>
         ),
-        loader:()=>fetch('http://localhost:5000/requestCount')
+        loader: () =>
+          fetch("https://assignment-server-plum.vercel.app/requestCount"),
       },
       {
         path: "/Dashboard/MyDonationUpdate/:id",
@@ -129,7 +163,10 @@ export const router = createBrowserRouter([
             <DonationUpadate></DonationUpadate>
           </PrivateRoute>
         ),
-        loader:({params})=>fetch(`http://localhost:5000/MyDonationUpdate/${params.id}`)
+        loader: ({ params }) =>
+          fetch(
+            `https://assignment-server-plum.vercel.app/donationDetails/${params.id}`
+          ),
       },
     ],
   },

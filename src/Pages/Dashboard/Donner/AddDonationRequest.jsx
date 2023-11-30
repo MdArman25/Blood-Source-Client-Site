@@ -1,27 +1,3 @@
-// const [recipientName, setRecipientName] = useState('');
-// const [recipientDistrict, setRecipientDistrict] = useState('');
-// const [recipientUpazila, setRecipientUpazila] = useState('');
-// const [hospitalName, setHospitalName] = useState('');
-// const [fullAddress, setFullAddress] = useState('');
-// const [donationDate, setDonationDate] = useState('');
-// const [donationTime, setDonationTime] = useState('');
-// const [requestMessage, setRequestMessage] = useState('');
-
-// const loggedInUserName = 'John Doe';
-// const loggedInUserEmail = 'john.doe@example.com';
-// const formData = {
-//     requesterName: loggedInUserName,
-//     requesterEmail: loggedInUserEmail,
-//     recipientName,
-//     recipientDistrict,
-//     recipientUpazila,
-//     hospitalName,
-//     fullAddress,
-//     donationDate,
-//     donationTime,
-//     requestMessage,
-//     donationStatus: 'pending',
-//   };
 
 import { useForm } from "react-hook-form";
 import ReactiveButton from "reactive-button";

@@ -59,7 +59,7 @@ const Login = () => {
         District: null,
         Upazila: null,
         status: "active",
-        role:'Donar'
+        role: "Donar",
       };
       console.log(result);
       axiosPublic

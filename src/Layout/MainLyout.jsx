@@ -14,7 +14,9 @@ const singup = location.pathname.includes('signup')
     <div className="">
   {login||singup || <NavBar></NavBar>}
             <Outlet></Outlet>
+            <div className="mt-40">
             {login||singup || <Footer></Footer>}
+            </div>
   <div className="border-2">  
   </div>
       <Toaster />

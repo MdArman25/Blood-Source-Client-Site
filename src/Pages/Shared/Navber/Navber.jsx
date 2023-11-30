@@ -7,10 +7,11 @@ import useAdmin from "../../../Hooks/useAdmin";
 import useVolunteer from "../../../Hooks/useModerator";
 
 const NavBar = () => {
-  const { user, logOut,lodding } = Context();
+  const { user, logOut, lodding } = Context();
   console.log(user);
-  const [isAdmin,isAdminLoading] = useAdmin(); 
-  const [isVolunteer,isVolunteerLoading]=useVolunteer()
+  const [isAdmin, isAdminLoading] = useAdmin();
+  const [isVolunteer, isVolunteerLoading] = useVolunteer();
+  console.log(isAdmin, isVolunteer);
   // if(isAdminLoading){
   //   <p>Lodding</p>
   // }
@@ -24,29 +25,67 @@ const NavBar = () => {
   const navOptions = (
     <>
       <li>
-        <NavLink to={"/"}>HOME</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "btn btn-warning btn-sm" : "btn btn-ghost btn-sm"
+          }
+          to={"/"}
+        >
+          HOME
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"/contact_us"}>CONTACT US</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "btn btn-warning btn-sm" : "btn btn-ghost btn-sm"
+          }
+          to={"/Contact"}
+        >
+          CONTACT US
+        </NavLink>
+      </li>
+
+      <li>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "btn btn-warning btn-sm" : "btn btn-ghost btn-sm"
+          }
+          to={"/BloodDonationRequest"}
+        >
+          Blood Donation Request
+        </NavLink>
       </li>
       <li>
-        <NavLink to={"dashboard"}>DASHBOARD</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/our_menu"}>OUR MENU</NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? "btn btn-warning btn-sm" : "btn btn-ghost btn-sm"
+          }
+          to={"/searchDonation"}
+        >
+          Find Donation{" "}
+        </NavLink>
       </li>
       <div>
-        {/* {user && ( */}
-        <ul className="lg:flex gap-5 items-center mx-2">
-          <li>
-            <NavLink to={"/shop/salad"}>
-              <FaShoppingCart></FaShoppingCart>OUR SHOP
+        {user && (
+          <ul className="lg:flex gap-5 items-center mx-2">
+            <li>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "btn btn-warning btn-sm" : "btn btn-ghost btn-sm"
+                }
+                to={"dashboard"}
+              >
+                DASHBOARD
+              </NavLink>
+            </li>
+            <NavLink 
+            className={({ isActive }) =>
+            isActive ? "btn btn-warning btn-sm" : "btn btn-ghost btn-sm"
+          } to={"/Funding"} >
+              <button className="text-center"> Funding </button>
             </NavLink>
-          </li>
-          <NavLink to={"/dashboard/cart"} className="">
-            <button> MY CART</button>
-          </NavLink>
-        </ul>
+          </ul>
+        )}
       </div>
     </>
   );
@@ -106,13 +145,13 @@ const NavBar = () => {
               >
                 <li className=" py-2 ">
                   <NavLink
-                  to={
-                    isAdmin?.isAdmin
-                      ? "/Dashboard/AdminProfile"
-                      : isVolunteer?.isVolunteer
-                      ? "/Dashboard/VolunteerProfile"
-                      : "/Dashboard/UserProfile"
-                  }
+                    to={
+                      isAdmin?.isAdmin
+                        ? "/Dashboard/AdminProfile"
+                        : isVolunteer?.isVolunteer
+                        ? "/Dashboard/VolunteerProfile"
+                        : "/Dashboard/UserProfile"
+                    }
                     className={({ isPending, isActive }) =>
                       isPending
                         ? "pending "
